@@ -1,0 +1,727 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   🌟 نظام التصميم الشامل: الهوية بالأسود والأصفر (الذهبي) 🌟
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. المتغيرات المتقدمة (Advanced CSS Variables)
+   -------------------------------------------------------------------------- */
+:root {
+    /* الألوان الأساسية (الهوية الجريئة) */
+    --primary: #facc15;          /* أصفر ذهبي ساطع */
+    --primary-hover: #eab308;    /* أصفر داكن عند التمرير */
+    --secondary: #fef08a;        /* أصفر فاتح جداً للتفاصيل */
+    --accent: #fbbf24;           /* أصفر عنبري للمسات الإضافية */
+    
+    /* تدرجات ألوان (Gradients) للبطاقات والنصوص */
+    --gradient-primary: linear-gradient(135deg, var(--primary), var(--accent));
+    --gradient-accent: linear-gradient(135deg, var(--accent), #d97706);
+    --gradient-dark: linear-gradient(145deg, #171717, #0a0a0a);
+    
+    /* ألوان الخلفيات الداكنة (أسود عميق مريح وأنيق) */
+    --bg-main: #0a0a0a;          /* أسود شبه خالص للخلفية الأساسية */
+    --bg-surface: #171717;       /* رمادي داكن للبطاقات */
+    --bg-surface-light: #262626; /* رمادي أفتح قليلاً للحدود والتفاصيل */
+    
+    /* ألوان النصوص */
+    --text-main: #f8fafc;        /* أبيض ناصع للنصوص الأساسية */
+    --text-muted: #a3a3a3;       /* رمادي مريح للنصوص الثانوية */
+    --text-dark: #000000;        /* أسود للنصوص فوق الأزرار الصفراء */
+    
+    /* ألوان الحالات والبيانات المالية */
+    --profit: #10b981;           /* أخضر للربح/النجاح */
+    --loss: #ef4444;             /* أحمر للخسارة/الخطأ */
+    --warning: #f59e0b;          /* برتقالي للتنبيهات */
+    --info: #3b82f6;             /* أزرق فاتح للمعلومات */
+
+    /* التأثيرات الزجاجية المتقدمة (Advanced Glassmorphism) */
+    --glass-bg: rgba(23, 23, 23, 0.6);
+    --glass-bg-hover: rgba(38, 38, 38, 0.8);
+    --glass-border: rgba(250, 204, 21, 0.1);
+    --glass-border-glow: rgba(250, 204, 21, 0.4);
+    
+    /* الظلال والتوهج (Shadows & Glows) */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.5);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.7);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.9);
+    --glow-primary: 0 0 20px rgba(250, 204, 21, 0.3);
+    --glow-secondary: 0 0 20px rgba(254, 240, 138, 0.3);
+
+    /* الأبعاد والمسافات (Spacing & Layout) */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 9999px;
+    
+    /* الحركات (Transitions) */
+    --trans-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --trans-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --trans-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --trans-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* --------------------------------------------------------------------------
+   2. التهيئة الأساسية وشريط التمرير (Reset & Base)
+   -------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth; /* تمرير ناعم للصفحة */
+}
+
+body {
+    background-color: var(--bg-main);
+    /* خلفية شبكية تعطي إيحاء بالتكنولوجيا مع إضاءة صفراء خافتة */
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(250, 204, 21, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(254, 240, 138, 0.03), transparent 25%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+    color: var(--text-main);
+    direction: rtl;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--primary);
+    color: var(--text-dark);
+}
+
+/* شريط تمرير احترافي بالأصفر والأسود */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+    border-left: 1px solid rgba(255,255,255,0.05);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--bg-surface-light);
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--bg-main);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. النصوص والعناوين (Typography System)
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-main);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--trans-normal);
+    position: relative;
+}
+
+/* تأثير خط تحت الرابط عند التمرير */
+a.link-hover::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    right: 0;
+    background: var(--gradient-primary);
+    transition: var(--trans-normal);
+}
+a.link-hover:hover::after {
+    width: 100%;
+}
+
+/* نصوص متدرجة الألوان (للعناوين المهمة) */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.text-gradient-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* --------------------------------------------------------------------------
+   4. التخطيط والشبكات (Layout & Grid System)
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+/* شبكات متجاوبة وذكية */
+.grid-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.grid-dashboard {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* القائمة الجانبية والمحتوى */
+    gap: 20px;
+    min-height: 100vh;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   5. البطاقات والتأثيرات الزجاجية (Glass & 3D Cards)
+   -------------------------------------------------------------------------- */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 30px;
+    transition: var(--trans-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير لمعان (Shine) يمر على البطاقة */
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(250, 204, 21, 0.05), transparent);
+    transform: skewX(-20deg);
+    transition: var(--trans-slow);
+}
+
+.glass-panel:hover::before {
+    left: 200%;
+}
+
+.glass-panel:hover {
+    border-color: var(--glass-border-glow);
+    transform: translateY(-5px);
+    box-shadow: var(--glow-primary);
+}
+
+/* بطاقة ثلاثية الأبعاد */
+.card-3d {
+    perspective: 1000px;
+    background: transparent;
+}
+
+.card-3d-inner {
+    background: var(--gradient-dark);
+    border: 1px solid rgba(250,204,21,0.1);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+.card-3d:hover .card-3d-inner {
+    transform: rotateX(5deg) rotateY(-5deg) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: -10px 10px 20px rgba(0,0,0,0.6);
+}
+
+/* --------------------------------------------------------------------------
+   6. لوحات القيادة والمؤشرات (Dashboard & Widgets)
+   -------------------------------------------------------------------------- */
+.stat-widget {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-right: 4px solid var(--primary); /* خط جانبي أصفر */
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(250, 204, 21, 0.1);
+    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.stat-details h4 {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.stat-details .value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.trend-up { color: var(--profit); display: flex; align-items: center; gap: 5px; font-size: 0.9rem;}
+.trend-down { color: var(--loss); display: flex; align-items: center; gap: 5px; font-size: 0.9rem;}
+
+/* شريط أخبار متحرك (Ticker) */
+.news-ticker-container {
+    background: var(--bg-surface);
+    border-bottom: 1px solid rgba(250,204,21,0.1);
+    overflow: hidden;
+    padding: 10px 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.news-ticker {
+    display: inline-block;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 30px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.ticker-item span { color: var(--primary); font-weight: bold; }
+
+/* --------------------------------------------------------------------------
+   7. الأزرار التفاعلية (Interactive Buttons)
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    transition: var(--trans-bounce);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* زر رئيسي أصفر مع نص أسود */
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--text-dark); /* نص أسود للتباين */
+    box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--glow-primary);
+}
+
+.btn-primary:hover::before {
+    opacity: 1;
+}
+
+/* زر مفرغ (Outline) */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: var(--text-dark);
+    box-shadow: var(--glow-primary);
+}
+
+/* زر دائري للأيقونات */
+.btn-icon {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    color: var(--primary);
+    border: 1px solid rgba(250,204,21,0.2);
+}
+.btn-icon:hover {
+    background: var(--primary);
+    color: var(--text-dark);
+    transform: rotate(15deg);
+}
+
+/* --------------------------------------------------------------------------
+   8. النماذج وحقول الإدخال (Forms & Inputs)
+   -------------------------------------------------------------------------- */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--trans-normal);
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px 20px;
+    background: var(--bg-main);
+    border: 2px solid var(--bg-surface-light);
+    color: var(--text-main);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: var(--trans-normal);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #111;
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.15);
+}
+
+.form-control::placeholder {
+    color: rgba(163, 163, 163, 0.5);
+}
+
+/* تأثير الحقل النشط على الـ Label */
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   9. الجداول الاحترافية (Data Tables)
+   -------------------------------------------------------------------------- */
+.table-wrapper {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--bg-surface-light);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+th {
+    background: rgba(0,0,0,0.4);
+    color: var(--primary);
+    font-weight: 700;
+    padding: 18px 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+tbody tr {
+    transition: var(--trans-normal);
+}
+
+tbody tr:hover {
+    background: rgba(250, 204, 21, 0.05);
+    transform: scale(1.005);
+}
+
+/* شارات الحالة داخل الجدول (Badges) */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+.badge-active { background: rgba(16, 185, 129, 0.15); color: var(--profit); border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+/* --------------------------------------------------------------------------
+   10. شاشات التحميل المبتكرة (Loaders & Spinners)
+   -------------------------------------------------------------------------- */
+/* لودر رقمي (Digital Pulse) */
+.loader-digital {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    animation: digital-pulse 1.5s ease-out infinite;
+}
+.loader-digital::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    animation: digital-spin 2s linear infinite;
+}
+
+/* لودر هيكلي (Skeleton Loading) */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-surface) 25%, var(--bg-surface-light) 50%, var(--bg-surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
+.skeleton-text { height: 15px; margin-bottom: 10px; width: 100%; }
+.skeleton-title { height: 25px; margin-bottom: 15px; width: 60%; }
+.skeleton-avatar { width: 50px; height: 50px; border-radius: 50%; }
+
+/* --------------------------------------------------------------------------
+   11. النوافذ المنبثقة والتنبيهات (Modals & Toasts)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--trans-normal);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--bg-surface);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    transform: translateY(50px) scale(0.9);
+    transition: var(--trans-bounce);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+/* --------------------------------------------------------------------------
+   12. الحركات البصرية (Animations & Keyframes)
+   -------------------------------------------------------------------------- */
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes digital-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4); }
+    100% { box-shadow: 0 0 0 20px rgba(250, 204, 21, 0); }
+}
+
+@keyframes digital-spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(0.8); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   13. القائمة الجانبية والعلوية (Navigation & Sidebar)
+   -------------------------------------------------------------------------- */
+.sidebar {
+    background: rgba(23, 23, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid var(--bg-surface-light);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    transition: var(--trans-normal);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.nav-item:hover, .nav-item.active {
+    background: rgba(250, 204, 21, 0.1);
+    color: var(--primary);
+    transform: translateX(-5px); 
+}
+
+/* --------------------------------------------------------------------------
+   14. التجاوب مع جميع الشاشات (Responsive & Media Queries)
+   -------------------------------------------------------------------------- */
+
+/* شاشات اللابتوب الصغيرة والتابلت الأفقي */
+@media (max-width: 1200px) {
+    .grid-dashboard {
+        grid-template-columns: 200px 1fr;
+    }
+}
+
+/* التابلت (الشاشات المتوسطة) */
+@media (max-width: 992px) {
+    .grid-dashboard {
+        grid-template-columns: 1fr; /* إلغاء الشريط الجانبي الثابت */
+    }
+    
+    .sidebar {
+        display: none; /* يمكن برمجته ليظهر كقائمة منسدلة لاحقاً */
+    }
+
+    h1 { font-size: 2.5rem; }
+    
+    .glass-panel {
+        padding: 20px;
+    }
+}
+
+/* الهواتف المحمولة (الشاشات الصغيرة) */
+@media (max-width: 768px) {
+    .section-padding {
+        padding: 40px 0;
+    }
+
+    .stat-widget {
+        flex-direction: column;
+        text-align: center;
+        border-right: none;
+        border-top: 4px solid var(--primary);
+    }
+
+    .btn {
+        width: 100%; /* الأزرار تأخذ العرض كاملاً لتسهيل النقر */
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+    
+    .news-ticker-container {
+        font-size: 0.85rem;
+    }
+}
+
+/* الهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .card-3d-inner {
+        padding: 15px;
+    }
+}
+
+/* ==========================================================================
+   نهاية ملف الـ CSS - المنصة جاهزة للانطلاق! 🚀
+   ========================================================================== */
