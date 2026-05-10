@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-        <script defer src="/_vercel/insights/script.js"></script>
+            <script defer src="/_vercel/insights/script.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الاعمال و الاتصال | الإدارة والخدمات التعليمية</title>
@@ -70,8 +70,8 @@
         .btn-logout:hover { background-color: var(--danger-red); color: white; }
 
         .news-ticker-container {
-            background-color: var(--card-bg);
-            color: var(--white);
+            background-color: #ffffff; /* تم تغيير لون الشريط إلى الأبيض */
+            color: #000000; /* تغيير لون النص الأساسي */
             padding: 12px 20px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -82,10 +82,12 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .news-ticker-container:hover { background-color: #262626; border-color: var(--primary); }
-        .news-icon { margin-left: 15px; font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+        .news-ticker-container:hover { background-color: #f3f4f6; border-color: var(--primary); }
+        /* تم تغيير لون أيقونة وكلمة عاجل إلى الأحمر */
+        .news-icon { margin-left: 15px; font-size: 1.2rem; color: var(--danger-red); font-weight: bold; }
         .news-marquee { flex: 1; white-space: nowrap; overflow: hidden; position: relative; }
-        .news-marquee span { display: inline-block; animation: marquee 20s linear infinite; font-weight: 600;}
+        /* تم تحديد لون الخط المتحرك بالأسود */
+        .news-marquee span { display: inline-block; animation: marquee 20s linear infinite; font-weight: 600; color: #000000;}
 
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
@@ -312,7 +314,7 @@
         <div class="filter-tabs" id="filterTabs">
             <button class="tab active" onclick="filterByCat('all', this)">جميع المساقات</button>
             <button class="tab tab-fav" onclick="filterByFav(this)">⭐ المفضلة</button>
-            <button class="tab" onclick="filterByCat0('متطلب جامعة', this)">متطلب جامعة</button>
+            <button class="tab" onclick="filterByCat('متطلب جامعة', this)">متطلب جامعة</button>
             <button class="tab" onclick="filterByCat('متطلب تخصص', this)">متطلب تخصص</button>
             <button class="tab" onclick="filterByCat('مساق حر', this)">مساق حر</button>
         </div>
